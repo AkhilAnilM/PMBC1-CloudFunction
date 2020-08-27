@@ -75,16 +75,20 @@ auth.onAuthStateChanged(user => {
                 fetch("https://us-central1-emission-10e5f.cloudfunctions.net/webApi/api/v1/metrics")
                 .then(response => response.json())
                 .then(data => {
-                    console.log("data", Object.keys(data.things))
-                    const items = Object.keys(data.things).map(doc => {
+                    // console.log("data", Object.keys(data.things))
+                    const items = data.map(doc => {
                         // console.log("doc ",doc);
-                        return `<li>${data.things[doc].name}</li>`
-    
+                        // return `<li>${doc.readingTimestamp}</li>`
+                        console.log("fetch", data)
                     });
     
-                    thingsList.innerHTML = items.join('');
                 })
-                
+                const items = querySnapshot.docs.map(doc => {
+
+                    return `<li>${doc.data().name}</li>`
+
+                });
+                thingsList.innerHTML = items.join('');
 
             });
 
